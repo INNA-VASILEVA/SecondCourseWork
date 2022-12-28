@@ -1,13 +1,21 @@
 package Tasks;
 
+import Repeatability.Daily;
+import Repeatability.Monthly;
+
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 
 public class Task {
     final int id;
     static int idGenerator = 0;           // id генератор
     final String heading;               // Заголовок
     final String description;           // Описание задачи
-    final LocalDate date;               // Дата и время задачи
+    LocalDate date;               // Дата и время задачи
     final TypeOfTaskRepeat repeatTask;              // Повторяемость
     final DivisionByType tapeTask;                  // Тип Личная/Рабочая
     LocalDate nextDate;                // Следующая повторяемость
@@ -51,9 +59,9 @@ public class Task {
     public LocalDate nextDate() {  // Заполнение следующей даты ежедневника
         switch (this.repeatTask) {
             case ONE_TIME:
-                return date;
+                return date.plusDays(0);
             case DAILY:
-                return date.plusDays(1);
+                return date= LocalDate.now();
             case WEEKLY:
                 return date.plusWeeks(1);
             case MONTHLY:
@@ -61,7 +69,7 @@ public class Task {
             case ANNUAL:
                 return date.plusYears(1);
             default:
-                return date;
+            return date;
         }
     }
 }
